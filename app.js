@@ -8,11 +8,11 @@ const router = require("./routes/index.routes");
 
 const port = process.env.PORT || 6300;
 
-const corsOptions = {
+/*const corsOptions = {
   origin: process.env.CLIENT_URL,
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
-};
+};*/
 
 connection.connect((err) => {
   if (err) {
@@ -23,9 +23,17 @@ connection.connect((err) => {
 });
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
-app.use(cors(corsOptions));
+/*app.use(cors(corsOptions));*/
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.use("/api", router);
 
 //  Ecoute la méthode GET et la route "/"

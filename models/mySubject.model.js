@@ -6,6 +6,7 @@ const validate = (data, forCreation = true) => {
     const presence = forCreation ? 'required' : 'optional';
     return Joi.object({
         sentence: Joi.string().max(255).presence(presence),
+        score: Joi.number().integer().min(0).max(100).presence("optional"),
     }).validate(data, { abortEarly: false }).error;
 }
 
