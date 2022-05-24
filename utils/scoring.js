@@ -19,9 +19,11 @@ const scoringSentences = (resultArray, sentence) => {
     return finalArray;
 }
 
+// Scoring à finaliser ci-dessous
+
 const scoringBeta = (phrase) => {
-    let titi = phrase.length;
-    return titi;
+    let finalScore = phrase.length;
+    return finalScore;
 }
 
 module.exports = {

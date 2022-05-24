@@ -12,17 +12,14 @@ router.post('/', async (req,res)=> {
         });
         return res.status(422).json(errorArray);
     }
-    console.log(req.body.sentence);
     const newSubject =await mySubject.newFunction(req.body.sentence);
-    console.log(newSubject);
+
     //  Eclater la réponse en tableau
     const resultArray = newSubject.split(",");
-    
 
     // Fonction scoring : elle reçoit le tableau resultArray et sentence
     // et elle retourne mon tableau d'object scoré
     const finalResults = myScoring.scoringSentences(resultArray, req.body.sentence);
-
     res.json(finalResults);
 });
 
