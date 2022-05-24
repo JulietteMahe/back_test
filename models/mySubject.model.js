@@ -33,14 +33,8 @@ const create = ({sentence}) =>{
         })
 }
 
-const submitSubject = () => {
-    return db
-        
-}
-
 module.exports = {
     create,
     validate,
     findMySubject,
-    submitSubject
 }

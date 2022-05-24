@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const mySubject = require('../models/mySubject.model');
+const mySubject = require('../api/api');
+const myScoring = require('../utils/scoring');
 
 router.post('/', async (req,res)=> {   
-     const errors = mySubject.validate(req.body);
+    const errors = mySubject.validate(req.body);
     if (errors) {
         const errorDetails = errors.details;
         const errorArray = [];
@@ -11,18 +12,18 @@ router.post('/', async (req,res)=> {
         });
         return res.status(422).json(errorArray);
     }
-    const newSubject =await mySubject.create(req.body);
-    if(newSubject && (typeof(newSubject.errno)!=='undefined')){
-        return res.sendStatus(500);
-    }
-    if(newSubject){
-        return res.status(201).send('subject posted');
-        // Here the post to GPT3 and the get res as an array of 3 objects/ an object of 3 objects?
-    }
-    else
-    {
-        return res.status(500).send('subject was not posted');
-    }
+    console.log(req.body.sentence);
+    const newSubject =await mySubject.newFunction(req.body.sentence);
+    console.log(newSubject);
+    //  Eclater la réponse en tableau
+    const resultArray = newSubject.split(",");
+    
+
+    // Fonction scoring : elle reçoit le tableau resultArray et sentence
+    // et elle retourne mon tableau d'object scoré
+    const finalResults = myScoring.scoringSentences(resultArray, req.body.sentence);
+
+    res.json(finalResults);
 });
 
 
@@ -30,7 +31,7 @@ router.get('/', async (req, res) => {
     //Get information from model
     const result = await mySubject.findMySubject();
     if (result) {
-        return res.status(200).json(result); 
+        return res.status(200).send(result); 
     }
     else {
         return res.sendStatus(500);

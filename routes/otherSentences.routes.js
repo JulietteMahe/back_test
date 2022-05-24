@@ -1,4 +1,4 @@
-const router = require("express").Router();
+/*const router = require("express").Router();
 const otherSentence = require('../models/otherSentences.model');
 
 router.get('/', async (req, res) => {
@@ -12,4 +12,4 @@ router.get('/', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router;*/

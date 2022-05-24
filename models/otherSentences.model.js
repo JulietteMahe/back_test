@@ -1,4 +1,4 @@
-const connection = require("../db-config");
+/*const connection = require("../db-config");
 const db = connection.promise();
 
 // Fetch all alternative sentences, ordered by score , highest to lowest
@@ -14,4 +14,4 @@ const findAll = () => {
 
 module.exports = {
     findAll
-}
+}*/
