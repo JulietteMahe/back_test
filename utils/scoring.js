@@ -28,8 +28,8 @@ const scoringBeta = (phrase) => {
 
 // Ici monte les différentes parties du scoring avant de les assembler
 
-let str = "Join 😀";
-let tempScore=0;
+let str = "Join us for a fun day in Europa park 😀 !";
+let tempScore = 0;
 
 // 1.Length 20%
 
@@ -44,11 +44,10 @@ function stringLength(str) {
 console.log(stringLength(str));
 
 function wordCount(str) {
-    return str.split(" ").length;
     if ((str.split(" ").length > 6) && (str.split(" ").length > 6)){
         tempScore += 10
     } else {
-        tempScore +=0
+        tempScore += 0
     }
     return tempScore;
 }
@@ -101,6 +100,8 @@ function countOccurenceQ(str, word) {
     return tempScore;
 }
 console.log(countOccurenceQ(str, "?"));
+
+/*function emojiOccurence(str)*/
 
 
 
