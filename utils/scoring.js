@@ -57,10 +57,9 @@ const scoringBeta = (phrases) => {
     tempScores += spamOccurence(phrases)
     tempWeight += spamWeight
 
-    let finalScore = (tempScores / tempWeight) * 100;
+    let finalScore = Math.round((tempScores / tempWeight) * 100);
     return finalScore ;
 }
-
 
 
 
