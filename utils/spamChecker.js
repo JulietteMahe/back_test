@@ -1354,14 +1354,15 @@
           { highlight: /\bwork at home\b/gi, keyword: "Work at home", category: "unnatural" },
           { highlight: /\bwork from home\b/gi, keyword: "Work from home", category: "unnatural" },
         ],
+        //let spamExamples = highlight.map(example => example.keyword)
       });
     });
   })(jQuery);
   
 
 
-
+ 
 
 module.exports = {
-    
+    spamExamples
 }

@@ -1,4 +1,5 @@
 const { emojiPattern } = require("./emojiPattern");
+const { spamList } = require("./spamList");
 
 const scoringSentences = (resultArray, sentence) => {
     const finalArray = [];
@@ -33,7 +34,7 @@ const scoringBeta = (phrase) => {
 ///////////////////// GLOBAL VAR /////////////////////
 
 //Below the string to study
-let str = "RE: Jjjjjj tttttt ffffff ffffff aaaaaa wwwwwww 😇 !";
+let str = "RE: Warranty tttttt ffffff ffffff aaaaaa wwwwwww 😇 !";
 
 //Below the main scoring var
 let tempScore = 0;
@@ -54,6 +55,7 @@ let emojiWeight = 3;
 
 // Below the SEMANTICS weight var
 let forwardWeight = 4;
+let spamWeight = 5;
 
 //////////////////////////////////////// 1.LENGTH
 
@@ -213,9 +215,24 @@ function forwardEmail(str) {
 tempScore += forwardEmail(str)
 tempWeight += forwardWeight
 
-function includeSpam(str) {
-    
+function spamOccurence(str) {
+     let spamScore = 0;
+     
+     spamCount = ((str || '').match(spamList(keyword)) || []).length;
+
+    if (spamCount === 0){
+        spamScore += 1
+    } else if (emojiCount <= 2){
+        spamScore += 0.5
+    } else {
+        spamScore += 0.1
+    }
+    return (spamScore * spamWeight);
 }
+console.log(spamOccurence(str));
+tempScore += spamOccurence(str)
+tempWeight += spamWeight
+
 
 ////////////////////// TOTAL SCORE must be between 1 and 100
 function totalProp (str) {
