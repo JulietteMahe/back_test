@@ -25,8 +25,8 @@ const scoringSentences = (resultArray, sentence) => {
 // Scoring à finaliser ci-dessous
 
 const scoringBeta = (phrase) => {
-    let finalScore = phrase.length;
-    return finalScore;
+    let finalScore = 0;
+    return finalScore = (tempScore / tempWeight) * 100;
 }
 
 // Below the different parts of algo before assembling them
@@ -34,7 +34,7 @@ const scoringBeta = (phrase) => {
 ///////////////////// GLOBAL VAR /////////////////////
 
 //Below the string to study
-let str = "RE: Warranty tttttt ffffff ffffff aaaaaa wwwwwww 😇 !";
+let str = "RE: Warranty tttttt tttttt ffffff aaaaaa wwwwwww 😇 !";
 
 //Below the main scoring var
 let tempScore = 0;
@@ -210,32 +210,36 @@ function forwardEmail(str) {
     } else {
         forwardScore += 1  
     }
+    console.log(forwardScore);
     return (forwardScore * forwardWeight);
 }
 tempScore += forwardEmail(str)
 tempWeight += forwardWeight
 
-function spamOccurence(str) {
-     let spamScore = 0;
-     
-     spamCount = ((str || '').match(spamList(keyword)) || []).length;
 
+function spamOccurence(str) {
+    let spamScore = 0;
+    let spamCount = 0;
+    spamList.forEach((item) => {
+        if (str.includes(item.keyword)){
+            spamCount += 1;
+        }
+    });
     if (spamCount === 0){
         spamScore += 1
-    } else if (emojiCount <= 2){
+    } else if (spamCount <= 2){
         spamScore += 0.5
     } else {
         spamScore += 0.1
     }
     return (spamScore * spamWeight);
 }
-console.log(spamOccurence(str));
 tempScore += spamOccurence(str)
 tempWeight += spamWeight
 
 
 ////////////////////// TOTAL SCORE must be between 1 and 100
-function totalProp (str) {
+function totalProp () {
     return totalScore = (tempScore / tempWeight) * 100;
 }
 

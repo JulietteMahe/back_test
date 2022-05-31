@@ -1,4 +1,4 @@
-spamList: [
+const spamList = [
     { highlight: /\baccess\b/gi, keyword: "Access", category: "urgency" },
     { highlight: /\baccess now\b/gi, keyword: "Access now", category: "urgency" },
     { highlight: /\bact\b/gi, keyword: "Act", category: "urgency" },
