@@ -188,7 +188,7 @@ function emojiOccurence(str) {
     if (emojiCount === 0){
         emojiScore += 0.5
     } else if (emojiCount === 1){
-        emojiScore += 0,8
+        emojiScore += 0.8
     } else {
         emojiScore += 0.1
     }
