@@ -24,17 +24,17 @@ const scoringSentences = (resultArray, sentence) => {
 
 // Scoring à finaliser ci-dessous
 
-const scoringBeta = (phrase) => {
+const scoringBeta = () => {
     let finalScore = (tempScores / tempWeight) * 100;
     return finalScore ;
 }
 
-// Below the different parts of algo before assembling them
 
 ///////////////////// GLOBAL VAR /////////////////////
 
 //Below the string to study
 let str = "RE: Warranty tttttt tttttt ffffff aaaaaa wwwwwww 😇 !";
+//let str = sentence;
 
 //Below the main scoring var
 let tempScores = 0;
@@ -244,6 +244,7 @@ function totalProp () {
 
 console.log("total score is");
 console.log(totalProp(str));
+console.log(scoringBeta(str));
 
 module.exports = {
     scoringSentences
