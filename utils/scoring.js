@@ -31,47 +31,38 @@ const scoringBeta = (phrases) => {
     stringLength(phrases)
     tempScores += stringLength(phrases)
     tempWeight += lengthWeight
-    console.log(stringLength(phrases));
 
     countWords(phrases)
     tempScores += countWords(phrases)
     tempWeight += wordsWeight
-    console.log(countWords(phrases));
 
     allCaps(phrases)
     tempScores += allCaps(phrases)
     tempWeight += capsWeight
-    console.log(allCaps(phrases));
 
     allLowerC(phrases)
     tempScores += allLowerC(phrases)
     tempWeight += lowerCWeight
-    console.log(allLowerC(phrases));
 
     includeExclam(phrases)
     tempScores += includeExclam(phrases)
     tempWeight += exclamWeight
-    console.log(includeExclam(phrases));
 
     countOccurenceQ(phrases, "?")
     tempScores += countOccurenceQ(phrases)
     tempWeight += qWeight
-    console.log(countOccurenceQ(phrases, "?"));
 
     emojiOccurence(phrases)
     tempScores += emojiOccurence(phrases)
     tempWeight += emojiWeight
-    console.log(emojiOccurence(phrases));
 
     forwardEmail(phrases)
     tempScores += forwardEmail(phrases)
     tempWeight += forwardWeight
-    console.log(forwardEmail(phrases));
 
     spamOccurence(phrases)
     tempScores += spamOccurence(phrases)
     tempWeight += spamWeight
-    console.log(spamOccurence(phrases));
 
     let finalScore = (tempScores / tempWeight) * 100;
     return finalScore ;
@@ -126,6 +117,7 @@ function stringLength(str) {
             lengthScore += 0.4
         }
     }
+    console.log("stringLength");
     return (lengthScore * lengthWeight);
 }
 tempScores += stringLength(str)
@@ -152,6 +144,7 @@ function countWords(str) {
             wordsCount += 0.01
         }
     }
+    console.log("countWords");
     return (wordsCount * wordsWeight);
 }
 tempScores += countWords(str)
@@ -172,6 +165,7 @@ function allCaps(str) {
     } else {
         capsScore += 0.90
     }
+    console.log("allCaps");
     return (capsScore * capsWeight);
 }
 tempScores += allCaps(str)
@@ -189,6 +183,7 @@ function allLowerC(str) {
     } else {
         allLowerScore += 1
     }
+    console.log("allLowerC");
     return (allLowerScore * lowerCWeight);
 }
 tempScores += allLowerC(str)
@@ -204,6 +199,7 @@ function includeExclam(str) {
     } else {
         exclamScore += 0.5   // No impact   
     }
+    console.log("includeExclam");
     return (exclamScore * exclamWeight);
 }
 tempScores += includeExclam(str)
@@ -222,6 +218,7 @@ function countOccurenceQ(str, word) {
     } else {
         qScore += 0.5
     }
+    console.log("countOccurenceQ");
     return (qScore * qWeight);
 }
 tempScores += countOccurenceQ(str)
@@ -241,6 +238,7 @@ function emojiOccurence(str) {
     } else {
         emojiScore += 0.1
     }
+    console.log("emojiOccurence");
     return (emojiScore * emojiWeight);
 }
 tempScores += emojiOccurence(str)
@@ -257,6 +255,7 @@ function forwardEmail(str) {
     } else {
         forwardScore += 1  
     }
+    console.log("forwardEmail")
     return (forwardScore * forwardWeight);
 }
 tempScores += forwardEmail(str)
@@ -278,6 +277,7 @@ function spamOccurence(str) {
     } else {
         spamScore += 0.1
     }
+    console.log("spamOccurence");
     return (spamScore * spamWeight);
 }
 tempScores += spamOccurence(str)
