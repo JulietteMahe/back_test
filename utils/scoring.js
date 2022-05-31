@@ -28,172 +28,186 @@ const scoringBeta = (phrase) => {
     return finalScore;
 }
 
-// Ici je monte les différentes parties du scoring avant de les assembler
+// Below the different parts of algo before assembling them
 
+///////////////////// GLOBAL VAR /////////////////////
+
+//Below the string to study
 let str = "Jjjjjj tttttt ffffff ffffff aaaaaa wwwwwww 😇 !";
 
+//Below the main scoring var
 let tempScore = 0;
-let tempScoreLength = 0;
-let tempScoreSyntax = 0;
-let tempScoreSemantic = 0;
+let tempWeight = 0;
+
+//////////////////// WEIGHT VAR //////////////////////
+
+// Below the LENGTH weight var
+let lengthWeight = 5;
+let wordsWeight = 2;
+
+// Below the SYNTAX weight var
+let capsWeight = 2;
+let lowerCWeight = 1;
+let exclamWeight = 2;
+let qWeight = 1;
+let emojiWeight = 3;
+
+// Below the SEMANTICS weight var
 
 
-//////////////////////  1.Length 20% score from 0,01 to 0,99
+//////////////////////////////////////// 1.LENGTH
 
-//  String length -> functionning, lack weight
+///////////////////  String length
 
 function stringLength(str) {
     let lengthScore = 0;
+    
     // test includes emoji because emojies modify total case (between 2 et 4 case for 1 emoji)
     
     if (emojiPattern.test(str) == true) {
         if ((str.length > 32) && (str.length < 54)){
-            lengthScore += 1
+            lengthScore += 0.9
         } else {
-            lengthScore += 0,5
+            lengthScore += 0.4
         }
     } else {
         if ((str.length > 30) && (str.length < 52)){
-            lengthScore += 1
+            lengthScore += 0.9
         } else {
-            lengthScore += 0,5
+            lengthScore += 0.4
         }
     }
-    return lengthScore;
+    return (lengthScore * lengthWeight);
 }
-//console.log(stringLength(str));
-tempScoreLength += stringLength(str)
-console.log(tempScoreLength);
+tempScore += stringLength(str)
+tempWeight += lengthWeight
 
 
-//  Word count -> fonctionnelle , manque la pondération
+///////////////////  Word count
 
 function countWords(str) {
     let wordsCount = 0;
-    // test include emoji car modifie le word count total (entre 1 et 4 word pour 1 emoji)
+
+    // test includes emoji because emojies modify total word count (between 1 and 4 word for 1 emoji)
 
     if (emojiPattern.test(str) == true) {
         if ((str.split(" ").length > 7) && (str.split(" ").length < 12) ){
-            wordsCount += 1
+            wordsCount += 0.9
         } else {
-            wordsCount += 0,5
+            wordsCount += 0.4
         }
     } else {
         if ((str.split(" ").length > 6) && (str.split(" ").length < 10 )){
-            wordsCount += 1
+            wordsCount += 0.9
         } else {
-            wordsCount += 0,5
+            wordsCount += 0.4
         }
     }
-    return wordsCount;
+    return (wordsCount * wordsWeight);
 }
-console.log(countWords(str))
-console.log(tempScoreLength);
-tempScoreLength += countWords(str)
-console.log(tempScoreLength);
-tempScoreLength / 2
-console.log("length score is");
-console.log(tempScoreLength / 2);
+tempScore += countWords(str)
+tempWeight += wordsWeight
 
 
-////////////////////// 2.Syntax 35%
 
+//////////////////////////////////// 2.SYNTAX
 
-//  All caps -> fonctionnelle , manque la pondération
+///////////////////  allCaps 
 
 function allCaps(str) {
     let capsScore = 0;
     let newStr = str.toUpperCase();
+    
     if (newStr === str){
-        capsScore += 0,25
+        capsScore += 0.10
     } else {
-        capsScore += 0,75
+        capsScore += 0.90
     }
-    return capsScore;
+    return (capsScore * capsWeight);
 }
-//console.log(allCaps(str));
-tempScoreSyntax += allCaps(str)
-//console.log(tempScore);
+tempScore += allCaps(str)
+tempWeight += capsWeight
 
 
-
-//  All lower case -> fonctionnelle , manque la pondération
+///////////////////  All lower case
 
 function allLowerC(str) {
     let allLowerScore = 0;
     let newStr = str.toLowerCase();
+
     if (newStr === str){
-        allLowerScore += 0,25
+        allLowerScore += 0.33
     } else {
-        allLowerScore += 0,75
+        allLowerScore += 1
     }
-       
-    return allLowerScore;
+    return (allLowerScore * lowerCWeight);
 }
-//console.log(allLowerC(str));
-tempScoreSyntax += allLowerC(str)
-//console.log(tempScore);
+tempScore += allLowerC(str)
+tempWeight += lowerCWeight
 
-
-//  Nombre de ! -> fonctionnelle , manque la pondération
+///////////////////  includeExclam
 
 function includeExclam(str) {
     let exclamScore = 0;
+
     if (str.includes("!")){
-        exclamScore += 0,1  // BAD
+        exclamScore += 0.1  // BAD
     } else {
-        exclamScore += 0,50   // No impact
+        exclamScore += 0.5   // No impact   
     }
-    return exclamScore;
+    return (exclamScore * exclamWeight);
 }
-//console.log(includeExclam(str));
-tempScoreSyntax += includeExclam(str)
-//console.log(tempScore);
+tempScore += includeExclam(str)
+tempWeight += exclamWeight
 
 
-
-//  Nombre de ? -> fonctionnelle , manque la pondération
+///////////////////  countOccurenceQ
 
 function countOccurenceQ(str, word) {
     let qScore = 0;
+
     if ((str.split("?").length-1) === 1) {
-        qScore += 0,75
+        qScore += 1
     } else if ((str.split("?").length-1) > 1) {
-        qScore += 0,25
+        qScore += 0.1
     } else {
-        qScore += 0,5
+        qScore += 0.5
     }
-    return qScore;
+    return (qScore * qWeight);
 }
-//console.log(countOccurenceQ(str));
-tempScoreSyntax += countOccurenceQ(str)
-//console.log(tempScore);
+tempScore += countOccurenceQ(str)
+tempWeight += qWeight
 
 
-
-//  Nombre d'emoji -> fonctionnelle , manque la pondération
+////////////////// emojiOccurence
 
 function emojiOccurence(str) {
     let emojiScore = 0;
     emojiCount = ((str || '').match(emojiPattern) || []).length;
+
     if (emojiCount === 0){
-        emojiScore += 0,5
+        emojiScore += 0.5
     } else if (emojiCount === 1){
-        emojiScore += 0,75
+        emojiScore += 0,8
     } else {
-        emojiScore += 0,25
+        emojiScore += 0.1
     }
-    return emojiScore;
+    return (emojiScore * emojiWeight);
 }
-//console.log(emojiOccurence(str));
-tempScoreSyntax = (tempScoreSyntax + emojiOccurence(str)) / 5
-//console.log("syntax score is");
-//console.log(tempScoreSyntax);
+tempScore += emojiOccurence(str)
+tempWeight += emojiWeight
 
 
-/// TOTAL SCORE must be between 1 and 100
+////////////////////////////////////////// 3. SEMANTICS
+
+function forwardEmail(str) {
+
+}
+
+
+////////////////////// TOTAL SCORE must be between 1 and 100
 /*function totalProp (str) {
-    return totalScore = (((tempScoreLength) * 0,40) + ((tempScoreSyntax) *0,60));
+    return totalScore = (tempScore / tempWeight) * 100;
 }*/
 
 /*console.log("total score is");
