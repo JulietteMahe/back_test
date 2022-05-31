@@ -518,6 +518,7 @@
   
     $(function () {
       $("#spam-checker--textarea").highlightWithinTextarea({
+        
         highlight: [
           { highlight: /\baccess\b/gi, keyword: "Access", category: "urgency" },
           { highlight: /\baccess now\b/gi, keyword: "Access now", category: "urgency" },

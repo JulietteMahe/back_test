@@ -33,7 +33,7 @@ const scoringBeta = (phrase) => {
 ///////////////////// GLOBAL VAR /////////////////////
 
 //Below the string to study
-let str = "Jjjjjj tttttt ffffff ffffff aaaaaa wwwwwww 😇 !";
+let str = "RE: Jjjjjj tttttt ffffff ffffff aaaaaa wwwwwww 😇 !";
 
 //Below the main scoring var
 let tempScore = 0;
@@ -53,7 +53,7 @@ let qWeight = 1;
 let emojiWeight = 3;
 
 // Below the SEMANTICS weight var
-
+let forwardWeight = 4;
 
 //////////////////////////////////////// 1.LENGTH
 
@@ -62,7 +62,7 @@ let emojiWeight = 3;
 function stringLength(str) {
     let lengthScore = 0;
     
-    // test includes emoji because emojies modify total case (between 2 et 4 case for 1 emoji)
+    // test includes emoji because emoji modify total case (between 2 et 4 case for 1 emoji)
     
     if (emojiPattern.test(str) == true) {
         if ((str.length > 32) && (str.length < 54)){
@@ -88,7 +88,7 @@ tempWeight += lengthWeight
 function countWords(str) {
     let wordsCount = 0;
 
-    // test includes emoji because emojies modify total word count (between 1 and 4 word for 1 emoji)
+    // test includes emoji because emoji modify total word count (between 1 and 4 word for 1 emoji)
 
     if (emojiPattern.test(str) == true) {
         if ((str.split(" ").length > 7) && (str.split(" ").length < 12) ){
@@ -177,8 +177,7 @@ function countOccurenceQ(str, word) {
 }
 tempScore += countOccurenceQ(str)
 tempWeight += qWeight
-console.log(tempWeight);
-console.log(tempScore);
+
 
 ////////////////// emojiOccurence
 
@@ -197,23 +196,34 @@ function emojiOccurence(str) {
 }
 tempScore += emojiOccurence(str)
 tempWeight += emojiWeight
-console.log(tempWeight);
-console.log(tempScore);
+
 
 ////////////////////////////////////////// 3. SEMANTICS
 
 function forwardEmail(str) {
+    let forwardScore = 0;
 
+    if (str.includes("RE:" || "FWD:" || "Re:" || "Fwd:")){
+        forwardScore += 0.1  // BAD
+    } else {
+        forwardScore += 1  
+    }
+    return (forwardScore * forwardWeight);
+}
+tempScore += forwardEmail(str)
+tempWeight += forwardWeight
+
+function includeSpam(str) {
+    
 }
 
-
 ////////////////////// TOTAL SCORE must be between 1 and 100
-/*function totalProp (str) {
+function totalProp (str) {
     return totalScore = (tempScore / tempWeight) * 100;
-}*/
+}
 
-/*console.log("total score is");
-console.log(totalProp(str));*/
+console.log("total score is");
+console.log(totalProp(str));
 
 module.exports = {
     scoringSentences
