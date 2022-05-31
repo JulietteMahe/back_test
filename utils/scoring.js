@@ -19,7 +19,7 @@ const scoringSentences = (resultArray, sentence) => {
         } 
         finalArray.push(otherSubjects);       
     });
-    //console.log(finalArray);
+    console.log(finalArray);
     return finalArray;
 }
 
@@ -27,40 +27,33 @@ const scoringSentences = (resultArray, sentence) => {
 // Scoring à finaliser ci-dessous
 
 const scoringBeta = (phrases) => {
+    tempScores = 0;
+    tempWeight = 0;
 
-    stringLength(phrases)
     tempScores += stringLength(phrases)
     tempWeight += lengthWeight
 
-    countWords(phrases)
     tempScores += countWords(phrases)
     tempWeight += wordsWeight
 
-    allCaps(phrases)
     tempScores += allCaps(phrases)
     tempWeight += capsWeight
 
-    allLowerC(phrases)
     tempScores += allLowerC(phrases)
     tempWeight += lowerCWeight
 
-    includeExclam(phrases)
     tempScores += includeExclam(phrases)
     tempWeight += exclamWeight
 
-    countOccurenceQ(phrases, "?")
     tempScores += countOccurenceQ(phrases)
     tempWeight += qWeight
 
-    emojiOccurence(phrases)
     tempScores += emojiOccurence(phrases)
     tempWeight += emojiWeight
 
-    forwardEmail(phrases)
     tempScores += forwardEmail(phrases)
     tempWeight += forwardWeight
 
-    spamOccurence(phrases)
     tempScores += spamOccurence(phrases)
     tempWeight += spamWeight
 
@@ -69,10 +62,12 @@ const scoringBeta = (phrases) => {
 }
 
 
+
+
 ///////////////////// GLOBAL VAR /////////////////////
 
 //Below the string to study
-let str = "Come check our new arrivals";
+let str = "Come check our new arrivals for summer 👗👗";
 
 //Below the main scoring var
 let tempScores = 0;
@@ -82,7 +77,7 @@ let tempWeight = 0;
 
 // Below the LENGTH weight var
 let lengthWeight = 5;
-let wordsWeight = 4;
+let wordsWeight = 5;
 
 // Below the SYNTAX weight var
 let capsWeight = 2;
@@ -98,7 +93,7 @@ let spamWeight = 5;
 //////////////////////////////////////// 1.LENGTH
 
 ///////////////////  String length
-
+// A
 function stringLength(str) {
     let lengthScore = 0;
     
@@ -117,15 +112,13 @@ function stringLength(str) {
             lengthScore += 0.4
         }
     }
-    console.log("stringLength");
+    console.log("A");
     return (lengthScore * lengthWeight);
 }
-tempScores += stringLength(str)
-tempWeight += lengthWeight
 
 
 ///////////////////  Word count
-
+//B
 function countWords(str) {
     let wordsCount = 0;
 
@@ -144,18 +137,15 @@ function countWords(str) {
             wordsCount += 0.01
         }
     }
-    console.log("countWords");
+    console.log("B");
     return (wordsCount * wordsWeight);
 }
-tempScores += countWords(str)
-tempWeight += wordsWeight
-
 
 
 //////////////////////////////////// 2.SYNTAX
 
 ///////////////////  allCaps 
-
+//C
 function allCaps(str) {
     let capsScore = 0;
     let newStr = str.toUpperCase();
@@ -165,15 +155,13 @@ function allCaps(str) {
     } else {
         capsScore += 0.90
     }
-    console.log("allCaps");
+    console.log("C");
     return (capsScore * capsWeight);
 }
-tempScores += allCaps(str)
-tempWeight += capsWeight
 
 
 ///////////////////  All lower case
-
+//D
 function allLowerC(str) {
     let allLowerScore = 0;
     let newStr = str.toLowerCase();
@@ -183,14 +171,13 @@ function allLowerC(str) {
     } else {
         allLowerScore += 1
     }
-    console.log("allLowerC");
+    console.log("D");
     return (allLowerScore * lowerCWeight);
 }
-tempScores += allLowerC(str)
-tempWeight += lowerCWeight
+
 
 ///////////////////  includeExclam
-
+//E
 function includeExclam(str) {
     let exclamScore = 0;
 
@@ -199,15 +186,13 @@ function includeExclam(str) {
     } else {
         exclamScore += 0.5   // No impact   
     }
-    console.log("includeExclam");
+    console.log("E");
     return (exclamScore * exclamWeight);
 }
-tempScores += includeExclam(str)
-tempWeight += exclamWeight
 
 
 ///////////////////  countOccurenceQ
-
+//F
 function countOccurenceQ(str, word) {
     let qScore = 0;
 
@@ -218,15 +203,13 @@ function countOccurenceQ(str, word) {
     } else {
         qScore += 0.5
     }
-    console.log("countOccurenceQ");
+    console.log("F");
     return (qScore * qWeight);
 }
-tempScores += countOccurenceQ(str)
-tempWeight += qWeight
 
 
 ////////////////// emojiOccurence
-
+//G
 function emojiOccurence(str) {
     let emojiScore = 0;
     emojiCount = ((str || '').match(emojiPattern) || []).length;
@@ -238,15 +221,14 @@ function emojiOccurence(str) {
     } else {
         emojiScore += 0.1
     }
-    console.log("emojiOccurence");
+    console.log("G");
     return (emojiScore * emojiWeight);
 }
-tempScores += emojiOccurence(str)
-tempWeight += emojiWeight
+
 
 
 ////////////////////////////////////////// 3. SEMANTICS
-
+//H
 function forwardEmail(str) {
     let forwardScore = 0;
 
@@ -255,13 +237,12 @@ function forwardEmail(str) {
     } else {
         forwardScore += 1  
     }
-    console.log("forwardEmail")
+    console.log("H");
     return (forwardScore * forwardWeight);
 }
-tempScores += forwardEmail(str)
-tempWeight += forwardWeight
 
 
+//I
 function spamOccurence(str) {
     let spamScore = 0;
     let spamCount = 0;
@@ -277,11 +258,9 @@ function spamOccurence(str) {
     } else {
         spamScore += 0.1
     }
-    console.log("spamOccurence");
+    console.log("I");
     return (spamScore * spamWeight);
 }
-tempScores += spamOccurence(str)
-tempWeight += spamWeight
 
 //console.log((tempScores / tempWeight) * 100);
 

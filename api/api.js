@@ -30,7 +30,7 @@ const newFunction = async (sentence) => {
 function generatePrompt(sentence) {
   const capitalizedSentence =
     sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
-  return `Rephrase this subject in a 4 words sentence, a 7 words sentence and an expressive sentence.
+  return `Rephrase this subject in three different ways: a long sentence, a sentence with emoji and a short sentence.
 
 Sentence: Come discover our brand new products!
 Names: Click here to come discover our new stuff, Lots of new clothes for spring, Our latest products arrived
