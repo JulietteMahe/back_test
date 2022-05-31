@@ -25,8 +25,8 @@ const scoringSentences = (resultArray, sentence) => {
 // Scoring à finaliser ci-dessous
 
 const scoringBeta = (phrase) => {
-    let finalScore = 0;
-    return finalScore = (tempScore / tempWeight) * 100;
+    let finalScore = (tempScores / tempWeight) * 100;
+    return finalScore ;
 }
 
 // Below the different parts of algo before assembling them
@@ -37,7 +37,7 @@ const scoringBeta = (phrase) => {
 let str = "RE: Warranty tttttt tttttt ffffff aaaaaa wwwwwww 😇 !";
 
 //Below the main scoring var
-let tempScore = 0;
+let tempScores = 0;
 let tempWeight = 0;
 
 //////////////////// WEIGHT VAR //////////////////////
@@ -81,7 +81,7 @@ function stringLength(str) {
     }
     return (lengthScore * lengthWeight);
 }
-tempScore += stringLength(str)
+tempScores += stringLength(str)
 tempWeight += lengthWeight
 
 
@@ -107,7 +107,7 @@ function countWords(str) {
     }
     return (wordsCount * wordsWeight);
 }
-tempScore += countWords(str)
+tempScores += countWords(str)
 tempWeight += wordsWeight
 
 
@@ -127,7 +127,7 @@ function allCaps(str) {
     }
     return (capsScore * capsWeight);
 }
-tempScore += allCaps(str)
+tempScores += allCaps(str)
 tempWeight += capsWeight
 
 
@@ -144,7 +144,7 @@ function allLowerC(str) {
     }
     return (allLowerScore * lowerCWeight);
 }
-tempScore += allLowerC(str)
+tempScores += allLowerC(str)
 tempWeight += lowerCWeight
 
 ///////////////////  includeExclam
@@ -159,7 +159,7 @@ function includeExclam(str) {
     }
     return (exclamScore * exclamWeight);
 }
-tempScore += includeExclam(str)
+tempScores += includeExclam(str)
 tempWeight += exclamWeight
 
 
@@ -177,7 +177,7 @@ function countOccurenceQ(str, word) {
     }
     return (qScore * qWeight);
 }
-tempScore += countOccurenceQ(str)
+tempScores += countOccurenceQ(str)
 tempWeight += qWeight
 
 
@@ -196,7 +196,7 @@ function emojiOccurence(str) {
     }
     return (emojiScore * emojiWeight);
 }
-tempScore += emojiOccurence(str)
+tempScores += emojiOccurence(str)
 tempWeight += emojiWeight
 
 
@@ -210,10 +210,9 @@ function forwardEmail(str) {
     } else {
         forwardScore += 1  
     }
-    console.log(forwardScore);
     return (forwardScore * forwardWeight);
 }
-tempScore += forwardEmail(str)
+tempScores += forwardEmail(str)
 tempWeight += forwardWeight
 
 
@@ -234,13 +233,13 @@ function spamOccurence(str) {
     }
     return (spamScore * spamWeight);
 }
-tempScore += spamOccurence(str)
+tempScores += spamOccurence(str)
 tempWeight += spamWeight
 
 
 ////////////////////// TOTAL SCORE must be between 1 and 100
 function totalProp () {
-    return totalScore = (tempScore / tempWeight) * 100;
+    return totalScore = (tempScores / tempWeight) * 100;
 }
 
 console.log("total score is");
