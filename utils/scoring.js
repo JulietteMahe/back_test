@@ -177,7 +177,8 @@ function countOccurenceQ(str, word) {
 }
 tempScore += countOccurenceQ(str)
 tempWeight += qWeight
-
+console.log(tempWeight);
+console.log(tempScore);
 
 ////////////////// emojiOccurence
 
@@ -196,7 +197,8 @@ function emojiOccurence(str) {
 }
 tempScore += emojiOccurence(str)
 tempWeight += emojiWeight
-
+console.log(tempWeight);
+console.log(tempScore);
 
 ////////////////////////////////////////// 3. SEMANTICS
 
