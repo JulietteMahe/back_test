@@ -19,12 +19,60 @@ const scoringSentences = (resultArray, sentence) => {
         } 
         finalArray.push(otherSubjects);       
     });
+    //console.log(finalArray);
     return finalArray;
 }
 
+
 // Scoring à finaliser ci-dessous
 
-const scoringBeta = () => {
+const scoringBeta = (phrases) => {
+
+    stringLength(phrases)
+    tempScores += stringLength(phrases)
+    tempWeight += lengthWeight
+    console.log(stringLength(phrases));
+
+    countWords(phrases)
+    tempScores += countWords(phrases)
+    tempWeight += wordsWeight
+    console.log(countWords(phrases));
+
+    allCaps(phrases)
+    tempScores += allCaps(phrases)
+    tempWeight += capsWeight
+    console.log(allCaps(phrases));
+
+    allLowerC(phrases)
+    tempScores += allLowerC(phrases)
+    tempWeight += lowerCWeight
+    console.log(allLowerC(phrases));
+
+    includeExclam(phrases)
+    tempScores += includeExclam(phrases)
+    tempWeight += exclamWeight
+    console.log(includeExclam(phrases));
+
+    countOccurenceQ(phrases, "?")
+    tempScores += countOccurenceQ(phrases)
+    tempWeight += qWeight
+    console.log(countOccurenceQ(phrases, "?"));
+
+    emojiOccurence(phrases)
+    tempScores += emojiOccurence(phrases)
+    tempWeight += emojiWeight
+    console.log(emojiOccurence(phrases));
+
+    forwardEmail(phrases)
+    tempScores += forwardEmail(phrases)
+    tempWeight += forwardWeight
+    console.log(forwardEmail(phrases));
+
+    spamOccurence(phrases)
+    tempScores += spamOccurence(phrases)
+    tempWeight += spamWeight
+    console.log(spamOccurence(phrases));
+
     let finalScore = (tempScores / tempWeight) * 100;
     return finalScore ;
 }
@@ -33,8 +81,7 @@ const scoringBeta = () => {
 ///////////////////// GLOBAL VAR /////////////////////
 
 //Below the string to study
-let str = "RE: Warranty tttttt tttttt ffffff aaaaaa wwwwwww 😇 !";
-//let str = sentence;
+let str = "Come check our new arrivals";
 
 //Below the main scoring var
 let tempScores = 0;
@@ -44,7 +91,7 @@ let tempWeight = 0;
 
 // Below the LENGTH weight var
 let lengthWeight = 5;
-let wordsWeight = 2;
+let wordsWeight = 4;
 
 // Below the SYNTAX weight var
 let capsWeight = 2;
@@ -96,13 +143,13 @@ function countWords(str) {
         if ((str.split(" ").length > 7) && (str.split(" ").length < 12) ){
             wordsCount += 0.9
         } else {
-            wordsCount += 0.4
+            wordsCount += 0.01
         }
     } else {
         if ((str.split(" ").length > 6) && (str.split(" ").length < 10 )){
             wordsCount += 0.9
         } else {
-            wordsCount += 0.4
+            wordsCount += 0.01
         }
     }
     return (wordsCount * wordsWeight);
@@ -236,15 +283,7 @@ function spamOccurence(str) {
 tempScores += spamOccurence(str)
 tempWeight += spamWeight
 
-
-////////////////////// TOTAL SCORE must be between 1 and 100
-function totalProp () {
-    return totalScore = (tempScores / tempWeight) * 100;
-}
-
-console.log("total score is");
-console.log(totalProp(str));
-console.log(scoringBeta(str));
+//console.log((tempScores / tempWeight) * 100);
 
 module.exports = {
     scoringSentences

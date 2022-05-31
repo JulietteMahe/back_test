@@ -18,7 +18,7 @@ const validate = (data, forCreation = true) => {
 const newFunction = async (sentence) => {
   const completion = await openai.createCompletion("text-davinci-002", {
     prompt: generatePrompt(sentence),
-    temperature: 0.6,
+    temperature: 1,
     max_tokens: 64,
     top_p: 1,
     frequency_penalty: 0,
@@ -30,7 +30,7 @@ const newFunction = async (sentence) => {
 function generatePrompt(sentence) {
   const capitalizedSentence =
     sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
-  return `Rephrase this subject in three different ways.
+  return `Rephrase this subject in a 4 words sentence, a 7 words sentence and an expressive sentence.
 
 Sentence: Come discover our brand new products!
 Names: Click here to come discover our new stuff, Lots of new clothes for spring, Our latest products arrived
