@@ -92,7 +92,7 @@ let spamWeight = 5;
 //////////////////////////////////////// 1.LENGTH
 
 ///////////////////  String length
-// A
+
 function stringLength(str) {
     let lengthScore = 0;
     
@@ -111,13 +111,12 @@ function stringLength(str) {
             lengthScore += 0.4
         }
     }
-    console.log("A");
     return (lengthScore * lengthWeight);
 }
 
 
 ///////////////////  Word count
-//B
+
 function countWords(str) {
     let wordsCount = 0;
 
@@ -136,7 +135,6 @@ function countWords(str) {
             wordsCount += 0.01
         }
     }
-    console.log("B");
     return (wordsCount * wordsWeight);
 }
 
@@ -144,7 +142,7 @@ function countWords(str) {
 //////////////////////////////////// 2.SYNTAX
 
 ///////////////////  allCaps 
-//C
+
 function allCaps(str) {
     let capsScore = 0;
     let newStr = str.toUpperCase();
@@ -154,13 +152,12 @@ function allCaps(str) {
     } else {
         capsScore += 0.90
     }
-    console.log("C");
     return (capsScore * capsWeight);
 }
 
 
 ///////////////////  All lower case
-//D
+
 function allLowerC(str) {
     let allLowerScore = 0;
     let newStr = str.toLowerCase();
@@ -170,13 +167,12 @@ function allLowerC(str) {
     } else {
         allLowerScore += 1
     }
-    console.log("D");
     return (allLowerScore * lowerCWeight);
 }
 
 
 ///////////////////  includeExclam
-//E
+
 function includeExclam(str) {
     let exclamScore = 0;
 
@@ -185,13 +181,12 @@ function includeExclam(str) {
     } else {
         exclamScore += 0.5   // No impact   
     }
-    console.log("E");
     return (exclamScore * exclamWeight);
 }
 
 
 ///////////////////  countOccurenceQ
-//F
+
 function countOccurenceQ(str, word) {
     let qScore = 0;
 
@@ -202,13 +197,12 @@ function countOccurenceQ(str, word) {
     } else {
         qScore += 0.5
     }
-    console.log("F");
     return (qScore * qWeight);
 }
 
 
 ////////////////// emojiOccurence
-//G
+
 function emojiOccurence(str) {
     let emojiScore = 0;
     emojiCount = ((str || '').match(emojiPattern) || []).length;
@@ -220,14 +214,13 @@ function emojiOccurence(str) {
     } else {
         emojiScore += 0.1
     }
-    console.log("G");
     return (emojiScore * emojiWeight);
 }
 
 
 
 ////////////////////////////////////////// 3. SEMANTICS
-//H
+
 function forwardEmail(str) {
     let forwardScore = 0;
 
@@ -236,12 +229,10 @@ function forwardEmail(str) {
     } else {
         forwardScore += 1  
     }
-    console.log("H");
     return (forwardScore * forwardWeight);
 }
 
 
-//I
 function spamOccurence(str) {
     let spamScore = 0;
     let spamCount = 0;
@@ -257,11 +248,9 @@ function spamOccurence(str) {
     } else {
         spamScore += 0.1
     }
-    console.log("I");
     return (spamScore * spamWeight);
 }
 
-//console.log((tempScores / tempWeight) * 100);
 
 module.exports = {
     scoringSentences

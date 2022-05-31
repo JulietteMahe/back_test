@@ -19,9 +19,9 @@ const newFunction = async (sentence) => {
   const completion = await openai.createCompletion("text-davinci-002", {
     prompt: generatePrompt(sentence),
     temperature: 1,
-    max_tokens: 64,
+    max_tokens: 256,
     top_p: 1,
-    frequency_penalty: 0,
+    frequency_penalty: 0.2,
     presence_penalty: 0,
   });
   return completion.data.choices[0].text;
@@ -30,12 +30,12 @@ const newFunction = async (sentence) => {
 function generatePrompt(sentence) {
   const capitalizedSentence =
     sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
-  return `Rephrase this subject in three different ways: a long sentence, a sentence with emoji and a short sentence.
+  return `Generate three very different versions of our subject.
 
 Sentence: Come discover our brand new products!
-Names: Click here to come discover our new stuff, Lots of new clothes for spring, Our latest products arrived
+Names: Click here to come discover our new stuff !!, Lots of new clothes for spring 🌻, Our latest products arrived
 Sentence: It's back in stock! 
-Names: Your favorite are back in stock, Your favorite prduct is back, Buy you favorite now before it's too late
+Names: Your favourites are back in stock, Your favorite product is back, Buy your favourite now before it's too late
 Sentence: ${capitalizedSentence}
 Names:`;
 }
