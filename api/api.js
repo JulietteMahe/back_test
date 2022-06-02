@@ -15,13 +15,13 @@ const validate = (data, forCreation = true) => {
   }).validate(data, { abortEarly: false }).error;
 }
 
-const completionOpenAI = async (sentence) => {
+const fetchAlternativesFromOpenAI = async (sentence) => {
   const completion = await openai.createCompletion("text-davinci-002", {
     prompt: generatePrompt(sentence),
     temperature: 1,
-    max_tokens: 256,
+    max_tokens: 182,
     top_p: 1,
-    frequency_penalty: 0.2,
+    frequency_penalty: 0,
     presence_penalty: 0,
   });
   return completion.data.choices[0].text;
@@ -30,12 +30,7 @@ const completionOpenAI = async (sentence) => {
 function generatePrompt(sentence) {
   const capitalizedSentence =
     sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
-  return `Rephrase the following subject line in five different ways (informal, formal, neutral, slang, then with an emoji)
-
-Sentence: Come discover our brand new products!
-Names: Click here to come discover our new stuff !!, Lots of new clothes for spring 🌻, Our latest products arrived
-Sentence: It's back in stock! 
-Names: Your favourites are back in stock, Your favorite product is back, Buy your favourite now before it's too late
+  return `Rephrase the following subject line in five different ways (informal, formal, neutral, slang, then with an emoji): 
 Sentence: ${capitalizedSentence}
 Names:`;
 }
