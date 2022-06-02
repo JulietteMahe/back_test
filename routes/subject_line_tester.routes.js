@@ -15,7 +15,7 @@ router.post('/', async (req,res)=> {
     const newSubject =await callOpenAI.fetchAlternativesFromOpenAI(req.body.sentence);
 
     //  Eclater la réponse en tableau
-    const resultArray = newSubject.split(",").split("2.").split("3.").split("4.").split("5.");
+    const resultArray = newSubject.split(",");
 
     // Fonction scoring : elle reçoit le tableau resultArray et sentence
     // et elle retourne mon tableau d'object scoré
