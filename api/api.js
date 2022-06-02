@@ -15,7 +15,7 @@ const validate = (data, forCreation = true) => {
   }).validate(data, { abortEarly: false }).error;
 }
 
-const newFunction = async (sentence) => {
+const completionOpenAI = async (sentence) => {
   const completion = await openai.createCompletion("text-davinci-002", {
     prompt: generatePrompt(sentence),
     temperature: 1,
@@ -42,5 +42,5 @@ Names:`;
 
 module.exports = {
   validate,
-  newFunction,
+  completionOpenAI,
 }

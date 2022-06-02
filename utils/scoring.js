@@ -1,23 +1,23 @@
 const { emojiPattern } = require("./emojiPattern");
 const { spamList } = require("./spamList");
 
-const scoringSentences = (resultArray, sentence) => {
+const scoringSubjectLine = (resultArray, sentence) => {
     const finalArray = [];
     const tempScore = scoringBeta(sentence)
 
-    let mySubject = {
+    let mySubjectLine = {
         sentence : sentence,
         score: tempScore,
     }
-    finalArray.push(mySubject);
+    finalArray.push(mySubjectLine);
 
     resultArray.forEach((element) => {
         const tempScore = scoringBeta(element)
-        let otherSubjects = {
+        let otherSubjectsLines = {
             sentence : element,
             score: tempScore,
         } 
-        finalArray.push(otherSubjects);       
+        finalArray.push(otherSubjectsLines);       
     });
     console.log(finalArray);
     return finalArray;
@@ -253,5 +253,5 @@ function spamOccurence(str) {
 
 
 module.exports = {
-    scoringSentences
+    scoringSubjectLine
 }

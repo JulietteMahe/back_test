@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const mySubject = require('../api/api');
+const callOpenAI = require('../api/api');
 const myScoring = require('../utils/scoring');
 
 router.post('/', async (req,res)=> {   
-    const errors = mySubject.validate(req.body);
+    const errors = callOpenAI.validate(req.body);
     if (errors) {
         const errorDetails = errors.details;
         const errorArray = [];
@@ -12,21 +12,21 @@ router.post('/', async (req,res)=> {
         });
         return res.status(422).json(errorArray);
     }
-    const newSubject =await mySubject.newFunction(req.body.sentence);
+    const newSubject =await callOpenAI.completionOpenAI(req.body.sentence);
 
     //  Eclater la réponse en tableau
     const resultArray = newSubject.split(",");
 
     // Fonction scoring : elle reçoit le tableau resultArray et sentence
     // et elle retourne mon tableau d'object scoré
-    const finalResults = myScoring.scoringSentences(resultArray, req.body.sentence);
+    const finalResults = myScoring.scoringSubjectLine(resultArray, req.body.sentence);
     res.json(finalResults);
 });
 
 
 router.get('/', async (req, res) => {
     //Get information from model
-    const result = await mySubject.findMySubject();
+    const result = await callOpenAI.findMySubject();
     if (result) {
         return res.status(200).send(result); 
     }
