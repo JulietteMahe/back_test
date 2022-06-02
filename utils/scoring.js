@@ -24,37 +24,52 @@ const scoringSubjectLine = (resultArray, sentence) => {
 }
 
 
-// Scoring à finaliser ci-dessous
+//////////////////////////////////////////// SCORING BETA //////////////////////////////////////////
 
 const scoringBeta = (phrases) => {
-    tempScores = 0;
-    tempWeight = 0;
+    let tempScores = 0;
+    let tempWeight = 0;
 
-    tempScores += stringLength(phrases)
+// Below the LENGTH weight var
+    let lengthWeight = 5;
+    let wordsWeight = 5;
+
+// Below the SYNTAX weight var
+    let capsWeight = 2;
+    let lowerCWeight = 1;
+    let exclamWeight = 2;
+    let qWeight = 1;
+    let emojiWeight = 3;
+
+// Below the SEMANTICS weight var
+    let forwardWeight = 4;
+    let spamWeight = 5;
+
+    tempScores += stringLength(phrases, lengthWeight)
     tempWeight += lengthWeight
 
-    tempScores += countWords(phrases)
+    tempScores += countWords(phrases, wordsWeight)
     tempWeight += wordsWeight
 
-    tempScores += allCaps(phrases)
+    tempScores += allCaps(phrases, capsWeight)
     tempWeight += capsWeight
 
-    tempScores += allLowerC(phrases)
+    tempScores += allLowerC(phrases, lowerCWeight)
     tempWeight += lowerCWeight
 
-    tempScores += includeExclam(phrases)
+    tempScores += includeExclam(phrases, exclamWeight)
     tempWeight += exclamWeight
 
-    tempScores += countOccurenceQ(phrases)
+    tempScores += countOccurenceQ(phrases, qWeight)
     tempWeight += qWeight
 
-    tempScores += emojiOccurence(phrases)
+    tempScores += emojiOccurence(phrases, emojiWeight)
     tempWeight += emojiWeight
 
-    tempScores += forwardEmail(phrases)
+    tempScores += forwardEmail(phrases, forwardWeight)
     tempWeight += forwardWeight
 
-    tempScores += spamOccurence(phrases)
+    tempScores += spamOccurence(phrases, spamWeight)
     tempWeight += spamWeight
 
     let finalScore = Math.round((tempScores / tempWeight) * 100);
@@ -63,37 +78,17 @@ const scoringBeta = (phrases) => {
 
 
 
-///////////////////// GLOBAL VAR /////////////////////
+////////////////////////////////////////// FUNCTIONS  //////////////////////////////////////////
 
 //Below the string to study
-let str = "Come check our new arrivals for summer 👗👗";
-
-//Below the main scoring var
-let tempScores = 0;
-let tempWeight = 0;
-
-//////////////////// WEIGHT VAR //////////////////////
-
-// Below the LENGTH weight var
-let lengthWeight = 5;
-let wordsWeight = 5;
-
-// Below the SYNTAX weight var
-let capsWeight = 2;
-let lowerCWeight = 1;
-let exclamWeight = 2;
-let qWeight = 1;
-let emojiWeight = 3;
-
-// Below the SEMANTICS weight var
-let forwardWeight = 4;
-let spamWeight = 5;
+let str = "Come check our new arrivals for summer 👗👗"; 
+//score test 81
 
 //////////////////////////////////////// 1.LENGTH
 
 ///////////////////  String length
 
-function stringLength(str) {
+function stringLength(str, lengthWeight) {
     let lengthScore = 0;
     
     // test includes emoji because emoji modify total case (between 2 et 4 case for 1 emoji)
@@ -117,7 +112,7 @@ function stringLength(str) {
 
 ///////////////////  Word count
 
-function countWords(str) {
+function countWords(str, wordsWeight) {
     let wordsCount = 0;
 
     // test includes emoji because emoji modify total word count (between 1 and 4 word for 1 emoji)
@@ -143,7 +138,7 @@ function countWords(str) {
 
 ///////////////////  allCaps 
 
-function allCaps(str) {
+function allCaps(str, capsWeight) {
     let capsScore = 0;
     let newStr = str.toUpperCase();
     
@@ -158,7 +153,7 @@ function allCaps(str) {
 
 ///////////////////  All lower case
 
-function allLowerC(str) {
+function allLowerC(str, lowerCWeight) {
     let allLowerScore = 0;
     let newStr = str.toLowerCase();
 
@@ -173,7 +168,7 @@ function allLowerC(str) {
 
 ///////////////////  includeExclam
 
-function includeExclam(str) {
+function includeExclam(str, exclamWeight) {
     let exclamScore = 0;
 
     if (str.includes("!")){
@@ -187,7 +182,7 @@ function includeExclam(str) {
 
 ///////////////////  countOccurenceQ
 
-function countOccurenceQ(str, word) {
+function countOccurenceQ(str, qWeight, word) {
     let qScore = 0;
 
     if ((str.split("?").length-1) === 1) {
@@ -203,7 +198,7 @@ function countOccurenceQ(str, word) {
 
 ////////////////// emojiOccurence
 
-function emojiOccurence(str) {
+function emojiOccurence(str, emojiWeight) {
     let emojiScore = 0;
     emojiCount = ((str || '').match(emojiPattern) || []).length;
 
@@ -221,7 +216,7 @@ function emojiOccurence(str) {
 
 ////////////////////////////////////////// 3. SEMANTICS
 
-function forwardEmail(str) {
+function forwardEmail(str, forwardWeight) {
     let forwardScore = 0;
 
     if (str.includes("RE:" || "FWD:" || "Re:" || "Fwd:")){
@@ -233,7 +228,7 @@ function forwardEmail(str) {
 }
 
 
-function spamOccurence(str) {
+function spamOccurence(str, spamWeight) {
     let spamScore = 0;
     let spamCount = 0;
     spamList.forEach((item) => {
