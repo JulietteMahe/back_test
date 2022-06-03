@@ -220,10 +220,12 @@ function forwardEmail(str, forwardWeight) {
     let forwardScore = 0;
     let newStr = str.toLowerCase();
 
-    if (newStr.includes("re" || "fwd" || "FWD" || "RE" || "Re" || "Fwd")){
+    if (newStr.includes("re:")){
         forwardScore += 0.01  // BAD
+    } else if (newStr.includes("fwd:")){
+        forwardScore += 0.01  // BAD 
     } else {
-        forwardScore += 1  
+        forwardScore += 1
     }
     console.log(forwardScore);
     return (forwardScore * forwardWeight);
