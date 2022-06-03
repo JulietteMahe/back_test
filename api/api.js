@@ -30,13 +30,7 @@ const fetchAlternativesFromOpenAI = async (sentence) => {
 function generatePrompt(sentence) {
   const capitalizedSentence =
     sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
-  return `Rephrase the following email subject line in five alternatives ways (informal, formal, neutral, slang, then with an emoji).
-  
-  Sentence: Come discover our brand new products!
-  Names: Click here to discover what's new !, Exclusive new items for our most valuable customer, Our latest products arrived, Check out our sick stuff for a hot girl summer !!, Lots of new clothes for spring 🌻
-  Sentence: It's back in stock! 
-  Names: Buy your favourite now before it's too late, Your favourites are back in stock, Your favorite product is back, I want i I fav it I buy it !!! , New arrivals solding out fast 🤯 
-  
+  return `Generate five different versions of the following email subject line in various ways(informal, formal, neutral, slang, then with an emoji).
   Sentence: ${capitalizedSentence}
   Names:`;
 }

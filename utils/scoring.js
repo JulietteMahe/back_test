@@ -218,12 +218,14 @@ function emojiOccurence(str, emojiWeight) {
 
 function forwardEmail(str, forwardWeight) {
     let forwardScore = 0;
+    let newStr = str.toLowerCase();
 
-    if (str.includes("RE:" || "FWD:" || "Re:" || "Fwd:")){
-        forwardScore += 0.1  // BAD
+    if (newStr.includes("re" || "fwd" || "FWD" || "RE" || "Re" || "Fwd")){
+        forwardScore += 0.01  // BAD
     } else {
         forwardScore += 1  
     }
+    console.log(forwardScore);
     return (forwardScore * forwardWeight);
 }
 
