@@ -227,7 +227,6 @@ function forwardEmail(str, forwardWeight) {
     } else {
         forwardScore += 1
     }
-    console.log(forwardScore);
     return (forwardScore * forwardWeight);
 }
 
@@ -240,13 +239,23 @@ function spamOccurence(str, spamWeight) {
             spamCount += 1;
         }
     });
+    // if no spam words, highest score = 1
     if (spamCount === 0){
         spamScore += 1
-    } else if (spamCount <= 2){
-        spamScore += 0.5
+    //if 1 spam word, score is 0,7
+    } else if (spamCount === 1){
+        spamScore += 0.7
+    //if 2 spam words, score is low with 0,4
+    } else if (spamCount === 2){
+        spamScore += 0.4
+    // if spam words are > 2, score is calculated from an exponential function 
+    // where spamScore is y and spamCount is x
+    // since spamCount is always positive and an int it allows spamScore to be negative and to increase with spamCount
     } else {
-        spamScore += 0.1
+        spamScore = (5.018248 * Math.pow(0.5501, spamCount) - 0.7)
     }
+    console.log(spamCount);
+    console.log(spamScore);
     return (spamScore * spamWeight);
 }
 
