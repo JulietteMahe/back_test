@@ -235,6 +235,7 @@ function spamOccurence(str, spamWeight) {
     let spamScore = 0;
     let spamCount = 0;
 
+
     spamList.forEach((item) => {
         if (str.includes(item.keyword)){
             spamCount += 1;
