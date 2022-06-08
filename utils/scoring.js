@@ -11,15 +11,15 @@ const scoringSubjectLine = (resultArray, sentence) => {
     }
     finalArray.push(mySubjectLine);
 
-    resultArray.forEach((element) => {
+    /*resultArray.forEach((element) => {
         const tempScore = scoringBeta(element)
         let otherSubjectsLines = {
             sentence : element,
             score: tempScore,
         } 
         finalArray.push(otherSubjectsLines);       
-    });
-    console.log(finalArray);
+    });*/
+    
     return finalArray;
 }
 
@@ -45,7 +45,7 @@ const scoringBeta = (phrases) => {
     let forwardWeight = 4;
     let spamWeight = 5;
 
-    tempScores += stringLength(phrases, lengthWeight)
+    /*tempScores += stringLength(phrases, lengthWeight)
     tempWeight += lengthWeight
 
     tempScores += countWords(phrases, wordsWeight)
@@ -67,10 +67,12 @@ const scoringBeta = (phrases) => {
     tempWeight += emojiWeight
 
     tempScores += forwardEmail(phrases, forwardWeight)
-    tempWeight += forwardWeight
+    tempWeight += forwardWeight*/
 
     tempScores += spamOccurence(phrases, spamWeight)
+    console.log(tempScores);
     tempWeight += spamWeight
+    console.log(spamWeight);
 
     let finalScore = Math.round((tempScores / tempWeight) * 100);
     return finalScore ;
@@ -235,12 +237,22 @@ function spamOccurence(str, spamWeight) {
     let spamScore = 0;
     let spamCount = 0;
 
-
+    let newStr = str.toLowerCase();
+    
+    console.log(spamList.length);
     spamList.forEach((item) => {
-        if (str.includes(item.keyword)){
+        const regex = item.highlight; 
+        if (regex.test(newStr)) {
+            console.log(newStr);
+            console.log(regex);
             spamCount += 1;
         }
+        /*if (newStr.includes(item.keyword.toLowerCase())){
+            
+        }*/
     });
+    
+
     // if no spam words, highest score = 1
     if (spamCount === 0){
         spamScore += 1
@@ -256,8 +268,7 @@ function spamOccurence(str, spamWeight) {
     } else {
         spamScore = (5.018248 * Math.pow(0.5501, spamCount) - 0.7)
     }
-    console.log(spamCount);
-    console.log(spamScore);
+
     return (spamScore * spamWeight);
 }
 

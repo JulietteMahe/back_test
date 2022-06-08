@@ -834,8 +834,6 @@ const spamList = [
     { highlight: /\bwork from home\b/gi, keyword: "Work from home", category: "unnatural" },
   ]
 
-  console.log(typeof spamList);
-
   module.exports = {
       spamList,
   }

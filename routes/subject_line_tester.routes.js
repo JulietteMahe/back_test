@@ -16,11 +16,13 @@ router.post('/', async (req,res)=> {
 
     //  Eclater la réponse en tableau
     const resultArray = newSubject.split(",");
+    console.log(resultArray);
 
     // Fonction scoring : elle reçoit le tableau resultArray et sentence
     // et elle retourne mon tableau d'object scoré
     const finalResults = myScoring.scoringSubjectLine(resultArray, req.body.sentence);
     res.json(finalResults);
+    
 });
 
 
